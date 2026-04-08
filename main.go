@@ -3,10 +3,12 @@ package main
 import (
 	"database/sql"
 	"embed"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
@@ -34,7 +36,14 @@ func main() {
 	if port == "" {
 		log.Fatal("PORT environment variable is not set")
 	}
-
+    intPort, err := strconv.Atoi(port)
+    if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+    if intPort < 1 && intPort > 65535 {
+        log.Fatal("Invalid Port")
+    }
 	apiCfg := apiConfig{}
 
 	// https://github.com/libsql/libsql-client-go/#open-a-connection-to-sqld
@@ -93,7 +102,6 @@ func main() {
 		Addr:    ":" + port,
 		Handler: router,
 	}
-
-	log.Printf("Serving on port: %s\n")
+	log.Printf("Serving on port: %s\n", intPort)
 	log.Fatal(srv.ListenAndServe())
 }
