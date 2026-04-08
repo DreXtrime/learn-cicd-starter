@@ -1,4 +1,4 @@
-https://github.com/DreXtrime/learn-cicd-starter/actions/workflows/ci.yml/badge.svg
+![alt](https://github.com/DreXtrime/learn-cicd-starter/actions/workflows/ci.yml/badge.svg)
 
 # learn-cicd-starter (Notely)
 
