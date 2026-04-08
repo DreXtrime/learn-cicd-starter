@@ -36,14 +36,14 @@ func main() {
 	if port == "" {
 		log.Fatal("PORT environment variable is not set")
 	}
-    intPort, err := strconv.Atoi(port)
-    if err != nil {
-        fmt.Println("Error:", err)
-        return
-    }
-    if intPort < 1 && intPort > 65535 {
-        log.Fatal("Invalid Port")
-    }
+	intPort, err := strconv.Atoi(port)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	if intPort < 1 && intPort > 65535 {
+		log.Fatal("Invalid Port")
+	}
 	apiCfg := apiConfig{}
 
 	// https://github.com/libsql/libsql-client-go/#open-a-connection-to-sqld
@@ -98,10 +98,10 @@ func main() {
 
 	router.Mount("/v1", v1Router)
 	srv := &http.Server{
-        ReadHeaderTimeout: 10,
-		Addr:    ":" + port,
-		Handler: router,
+		ReadHeaderTimeout: 10,
+		Addr:              ":" + port,
+		Handler:           router,
 	}
-	log.Printf("Serving on port: %s\n", intPort)
+	log.Printf("Serving on port: %d\n", intPort)
 	log.Fatal(srv.ListenAndServe())
 }
